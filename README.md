@@ -387,3 +387,13 @@ No external dependencies or frameworks are used.
 # License
 
 This project is available for educational and portfolio purposes.
+
+---
+
+## Project URL
+
+This project is based on the Task Tracker challenge from roadmap.sh:
+
+Project URL: https://roadmap.sh/projects/task-tracker
+
+The goal of the challenge is to build a command-line task management application that stores data in a JSON file and supports task creation, updates, deletion, status management, and filtering.
