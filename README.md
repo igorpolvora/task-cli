@@ -1,18 +1,389 @@
-## Getting Started
+# Task Tracker CLI
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+A command-line task management application built in Java that allows users to create, organize, track, and manage tasks directly from the terminal.
 
-## Folder Structure
+This project was developed to practice:
 
-The workspace contains two folders by default, where:
+* Object-Oriented Programming (OOP)
+* File manipulation with Java NIO
+* Manual JSON serialization/deserialization
+* Command Line Interface (CLI) development
+* Layered architecture
+* Error handling
+* Collections and Streams API
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+---
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+# Features
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## Task Management
 
-## Dependency Management
+* Add tasks
+* Update tasks
+* Delete tasks
+* Mark tasks as:
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+  * TODO
+  * IN_PROGRESS
+  * DONE
+
+## Listing
+
+* List all tasks
+* List tasks by status
+
+## Search
+
+* Search tasks by keyword
+
+## Sorting
+
+* Sort by creation date
+* Sort by priority
+
+## Statistics
+
+* Total tasks
+* TODO count
+* IN_PROGRESS count
+* DONE count
+* Completion percentage
+
+## Reports
+
+* Export task reports to TXT
+
+## Audit Log
+
+Every operation is automatically recorded in:
+
+```text
+data/history.log
+```
+
+---
+
+# Project Structure
+
+```text
+task-tracker/
+│
+├── src/
+│   ├── app/
+│   │   └── TaskTracker.java
+│   │
+│   ├── model/
+│   │   ├── Task.java
+│   │   ├── TaskStatus.java
+│   │   └── Priority.java
+│   │
+│   ├── repository/
+│   │   ├── TaskRepository.java
+│   │   └── HistoryRepository.java
+│   │
+│   ├── service/
+│   │   └── TaskService.java
+│   │
+│   └── util/
+│       ├── JsonUtil.java
+│       ├── DateUtil.java
+│       └── ConsoleTable.java
+│
+├── data/
+│   ├── tasks.json
+│   └── history.log
+│
+└── README.md
+```
+
+---
+
+# Task Model
+
+Each task contains:
+
+| Property    | Description             |
+| ----------- | ----------------------- |
+| id          | Unique identifier       |
+| description | Task description        |
+| status      | TODO, IN_PROGRESS, DONE |
+| priority    | LOW, MEDIUM, HIGH       |
+| createdAt   | Creation date           |
+| updatedAt   | Last update date        |
+
+Example:
+
+```json
+{
+  "id": 1,
+  "description": "Study Java",
+  "status": "TODO",
+  "priority": "HIGH",
+  "createdAt": "2026-06-02 15:30:00",
+  "updatedAt": "2026-06-02 15:30:00"
+}
+```
+
+---
+
+# Compilation
+
+## Windows PowerShell
+
+```powershell
+javac -d bin `
+src/model/*.java `
+src/util/*.java `
+src/repository/*.java `
+src/service/*.java `
+src/app/*.java
+```
+
+## Linux / macOS
+
+```bash
+javac -d bin \
+src/model/*.java \
+src/util/*.java \
+src/repository/*.java \
+src/service/*.java \
+src/app/*.java
+```
+
+---
+
+# Running the Application
+
+```bash
+java -cp bin app.TaskTracker
+```
+
+---
+
+# Commands
+
+## Add Task
+
+```bash
+java -cp bin app.TaskTracker add "Study Java" HIGH
+```
+
+Output:
+
+```text
+Task added successfully (ID: 1)
+```
+
+---
+
+## Update Task
+
+```bash
+java -cp bin app.TaskTracker update 1 "Study Spring Boot"
+```
+
+---
+
+## Delete Task
+
+```bash
+java -cp bin app.TaskTracker delete 1
+```
+
+---
+
+## Mark Task as Done
+
+```bash
+java -cp bin app.TaskTracker mark-done 1
+```
+
+---
+
+## Mark Task as In Progress
+
+```bash
+java -cp bin app.TaskTracker mark-in-progress 1
+```
+
+---
+
+## Mark Task as TODO
+
+```bash
+java -cp bin app.TaskTracker mark-todo 1
+```
+
+---
+
+## List All Tasks
+
+```bash
+java -cp bin app.TaskTracker list
+```
+
+---
+
+## List Tasks by Status
+
+### Done
+
+```bash
+java -cp bin app.TaskTracker list done
+```
+
+### TODO
+
+```bash
+java -cp bin app.TaskTracker list todo
+```
+
+### In Progress
+
+```bash
+java -cp bin app.TaskTracker list in-progress
+```
+
+---
+
+## Search Tasks
+
+```bash
+java -cp bin app.TaskTracker search java
+```
+
+---
+
+## Sort Tasks
+
+### By Date
+
+```bash
+java -cp bin app.TaskTracker sort date
+```
+
+### By Priority
+
+```bash
+java -cp bin app.TaskTracker sort priority
+```
+
+---
+
+## Statistics
+
+```bash
+java -cp bin app.TaskTracker stats
+```
+
+Example:
+
+```text
+========== STATS ==========
+Total: 10
+TODO: 4
+IN_PROGRESS: 2
+DONE: 4
+Completion Rate: 40.00%
+```
+
+---
+
+## Export Report
+
+```bash
+java -cp bin app.TaskTracker export
+```
+
+Generated file:
+
+```text
+data/tasks-report.txt
+```
+
+---
+
+## Help
+
+```bash
+java -cp bin app.TaskTracker help
+```
+
+---
+
+# Storage
+
+Tasks are persisted in:
+
+```text
+data/tasks.json
+```
+
+Example:
+
+```json
+[
+  {
+    "id": 1,
+    "description": "Study Java",
+    "status": "DONE",
+    "priority": "HIGH",
+    "createdAt": "2026-06-02 15:00:00",
+    "updatedAt": "2026-06-02 16:00:00"
+  }
+]
+```
+
+---
+
+# Audit Log
+
+Every action is recorded in:
+
+```text
+data/history.log
+```
+
+Example:
+
+```text
+[2026-06-02 15:10:01] ADD Task #1
+[2026-06-02 15:15:23] UPDATE Task #1
+[2026-06-02 15:18:12] DONE Task #1
+```
+
+---
+
+# Technologies
+
+* Java 25
+* Java NIO
+* Streams API
+* Collections Framework
+* CLI Architecture
+* Manual JSON Parsing
+
+No external dependencies or frameworks are used.
+
+---
+
+# Future Improvements
+
+* Maven
+* JUnit 5 tests
+* Docker support
+* GitHub Actions CI/CD
+* Better JSON parser
+* Pagination
+* Task categories
+* Due dates
+* Tags
+* CSV export
+* REST API version
+* Spring Boot integration
+
+---
+
+# License
+
+This project is available for educational and portfolio purposes.
