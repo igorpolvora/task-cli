@@ -1,0 +1,20 @@
+[
+{
+  "id": 1,
+  "description": "Study Java",
+  "status": "TODO",
+  "priority": "HIGH",
+  "createdAt": "2026-06-02 18:15:22",
+  "updatedAt": "2026-06-02 18:15:22"
+}
+,
+{
+  "id": 2,
+  "description": "Read Clean Code",
+  "status": "DONE",
+  "priority": "MEDIUM",
+  "createdAt": "2026-06-02 18:15:22",
+  "updatedAt": "2026-06-02 18:15:22"
+}
+
+]
